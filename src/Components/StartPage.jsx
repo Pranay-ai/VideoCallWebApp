@@ -1,23 +1,21 @@
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/Features/uiSlice";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+
 export default function StartPage() {
-    const dispatch = useDispatch();
 
-    const handleClick = (value) => {
-        dispatch(uiActions.setOptionSelected(value));
-    }
-  return (
-    <div className="startSection">
-  
-        <h1>Start or Join a Meeting</h1>
-        <div className="ButtonStyle">
-            <button onClick={()=>handleClick("create-room")}>Create a Room</button>
-        </div>
-        <div className="ButtonStyle">
-            <button onClick={()=>handleClick("join-room")}>Join a Room</button>
-        </div>
 
-    </div>
-  );
+    return (
+        <div className="startSection">
+            <h1>Start or Join a Meeting</h1>
+            <div className="ButtonStyle">
+                <NavLink to={"create-room"} className="button" >Create a Room</NavLink>
+            </div>
+            <div className="ButtonStyle">
+                <NavLink to={"join-room"} className="button">Join a Room</NavLink>
+            </div>
+        </div>
+    );
 }

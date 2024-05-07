@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+
 // import firepadRef, { connectedRef } from './server/firebase';
 // import { userName } from './server/firebase';
 // import { getDatabase, ref, push, child, onValue, onDisconnect, off } from 'firebase/database';
-import StartPage from './Components/StartPage';
-import { useSelector } from 'react-redux';
-
-import CreateRoom from './Components/CreateRoom';
+import { Outlet } from 'react-router-dom';
 
 function App() {
 
-  const isOptionSelected = useSelector((state) => state.ui.isOptionSelected);
-  const valueOption = useSelector((state) => state.ui.valueOption);  
 
   // console.log(connectedRef)
 
@@ -44,7 +39,7 @@ function App() {
   return (
 
       <>
-       <StartPage  />
+        <Outlet />
       </>
 
 

@@ -39,3 +39,20 @@ button:active {
   background-color: #004085; /* Even darker blue when the button is clicked */
   transform: scale(0.98);
 }
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
