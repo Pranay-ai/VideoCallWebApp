@@ -17,10 +17,12 @@ export default function CreateRoom() {
 
     // Function to generate a URL with the room ID as a query parameter
     const generateRoomUrl = () => {
-        const url = new URL(window.location.href);
-        url.searchParams.set('id', roomId);
-        return url.toString();
+        const baseUrl = `${window.location.protocol}//${window.location.host}`;
+        const meetUrl = new URL('meet', baseUrl);
+        meetUrl.searchParams.set('id', roomId);
+        return meetUrl.toString();
     }
+    
 
     // Function to copy the room ID to the clipboard
     const copyToClipboard = () => {

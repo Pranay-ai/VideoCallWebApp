@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     roomName:null,
     roomId:null,
-    isRoomCreated:false
+    isRoomCreated:false,
 }
 
 const createRoomSlice = createSlice({

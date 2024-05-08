@@ -8,6 +8,7 @@ import StartPage from './Components/StartPage.jsx'
 import CreateRoom from './Components/CreateRoom.jsx'
 import JoinRoom from './Components/JoinRoom.jsx'
 import App from './App.jsx'
+import Meet from './Components/Meet.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { index:true, element: <StartPage /> },
       { path: 'create-room', element: <CreateRoom /> },
       { path: 'join-room', element: <JoinRoom /> },
+      { path: 'meet', element: <Meet />},
 
     ],
   },
