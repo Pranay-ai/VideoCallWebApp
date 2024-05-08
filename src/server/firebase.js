@@ -27,7 +27,11 @@ export let connectedRef = ref(database, ".info/connected");
 const urlparams = new URLSearchParams(window.location.search);
 const roomId = urlparams.get("id");
 
-firepadRef = child(firepadRef, roomId);
+
+if(roomId) {
+  firepadRef = child(firepadRef, roomId);
+}
+
 
 
 export default firepadRef;

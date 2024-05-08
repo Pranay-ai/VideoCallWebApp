@@ -2,7 +2,7 @@ import { useSelector,useDispatch } from "react-redux"
 import { setUserName } from "../store/Features/meetSlice";
 import { push, child, onValue, onDisconnect, off } from 'firebase/database';
 import firepadRef, { connectedRef } from "../server/firebase"
-import { useRef } from "react";
+import { useRef,useEffect } from "react";
 
 export default function Meet() {
     const inputRef = useRef();
@@ -11,6 +11,7 @@ export default function Meet() {
     const userName = useSelector((state) => state.meet.userName);
     useEffect(() => {
         const participantsRef = child(firepadRef, 'participants');
+        console.log(participantsRef);
         let checkConnection; // Declare checkConnection outside the conditional block
     
         if (isUserName) {
