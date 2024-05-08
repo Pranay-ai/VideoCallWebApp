@@ -24,16 +24,10 @@ let firepadRef = ref(database);
 
 export let connectedRef = ref(database, ".info/connected");
 
-// Prompt for user name
-export const userName = prompt("What's your name?");
 const urlparams = new URLSearchParams(window.location.search);
 const roomId = urlparams.get("id");
 
-if (roomId) {
-  firepadRef = child(firepadRef, roomId);
-} else {
-  firepadRef = push(firepadRef); // generate unique location.
-  window.history.replaceState(null, "Meet", "?id=" + firepadRef.key);
-}
+firepadRef = child(firepadRef, roomId);
+
 
 export default firepadRef;
