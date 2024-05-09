@@ -1,17 +1,25 @@
 import { useSelector,useDispatch } from "react-redux"
-import { setUserName } from "../store/Features/meetSlice";
+import { setUserName , setParticipants, setUserKey} from "../store/Features/meetSlice";
 import { push, child, onValue, onDisconnect, off } from 'firebase/database';
 import firepadRef, { connectedRef } from "../server/firebase"
 import { useRef,useEffect } from "react";
+import MainScreen from "./MainScreen";
 
 export default function Meet() {
     const inputRef = useRef();
     const dispatch = useDispatch();
     const isUserName = useSelector((state) => state.meet.isUserName);
     const userName = useSelector((state) => state.meet.userName);
+    const participants = useSelector((state) => state.meet.participants);
+    const userKey=useSelector((state)=>state.meet.userKey);
     useEffect(() => {
         const participantsRef = child(firepadRef, 'participants');
-        console.log(participantsRef);
+
+        onValue(participantsRef, snap => {
+            const participants_data = snap.val();
+            dispatch(setParticipants(participants_data));
+        });
+        
         let checkConnection; // Declare checkConnection outside the conditional block
     
         if (isUserName) {
@@ -25,6 +33,7 @@ export default function Meet() {
                         screen: false
                     };
                     const userRef = push(participantsRef, { userName, preferences: defaultPrefs });
+                    dispatch(setUserKey(userRef.key));
                     onDisconnect(userRef).remove();
                 } else {
                     console.log('not connected');
@@ -57,9 +66,13 @@ export default function Meet() {
         </div>
         
     }
-    {isUserName && <div className="startSection">
-            <h1>Welcome {userName}</h1>
-        </div>
+    {isUserName && 
+    <div className="startSection">
+        <h1>Welcome {userName}</h1>
+        <h3>Participants</h3>
+       {participants && <MainScreen/> } 
+
+    </div>
     }
        
     </>
