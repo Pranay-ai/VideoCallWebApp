@@ -9,7 +9,10 @@ export default function UserBlock({ userPreferences, username }) {
                     </div>
                 }
             </div>
-            <div className="user-name">{username}</div>
+            <div className="user-name">
+                {username}
+                
+                </div>
         </div>
     );
 }

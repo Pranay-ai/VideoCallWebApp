@@ -56,11 +56,7 @@ button:active {
   color: white;
 }
 
-.participant-container{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+
 
 .user-block {
   border: 1px solid #ccc;
@@ -70,7 +66,7 @@ button:active {
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 10px;
-  overflow: hidden;
+
   font-family: Arial, sans-serif;
 }
 
@@ -103,5 +99,66 @@ button:active {
   color: #333;
   border-top: 1px solid #eee;
 }
+
+.mainScreen {
+  display: flex;
+  width: 100%;
+  height: 100vh; /* Adjust the height as needed */
+}
+
+.selected-user-content {
+  width: 70%;
+  background-color: #f4f4f4; /* Light grey background for visibility */
+  padding: 20px;
+}
+
+.selected-user-content .user-block {
+  width: 100%;
+  height: 100%;
+}
+
+.selected-user-content .user-content {
+  height: 90%;
+}
+
+.my-content .user-block{
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+
+
+}
+
+.my-content .user-content {
+  height: 70%;
+}
+
+.side-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* White background */
+  border-left: 1px solid #ccc; /* Separator between main and side content */
+}
+
+.my-content {
+  height: 30%;
+  padding: 20px  10px 20px 10px ;
+  background-color: #e8e8e8; /* Slightly darker grey for distinction */
+}
+
+.participant-container {
+  height: 70%;
+  padding: 20px;
+  overflow-y: auto; /* Makes it scrollable */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px; /* Spacing between participant blocks */
+}
+
+
+
 
 

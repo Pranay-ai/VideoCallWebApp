@@ -66,15 +66,7 @@ export default function Meet() {
         </div>
         
     }
-    {isUserName && 
-    <div className="startSection">
-        <h1>Welcome {userName}</h1>
-        <h3>Participants</h3>
-       {participants && <MainScreen/> } 
-
-    </div>
-    }
-       
+    {isUserName && participants && <MainScreen/> } 
     </>
 
     )
