@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "./Features/uiSlice"
 import createRoomReducer from "./Features/createRoomSlice"
-import joinRoomReducer from "./Features/joinRoomSlice";
-import meetReducer from "./Features/meetSlice"
+import UserInfoReducer from "./Features/UserInfoSlice"
+import JoinReducer from "./Features/joinSlice"
 
 const store= configureStore({
     reducer:{
         ui: uiReducer,
         createRoom: createRoomReducer,
-        joinRoom: joinRoomReducer,
-        meet: meetReducer
+        userInfo: UserInfoReducer,
+        join: JoinReducer,
     }
 })
 

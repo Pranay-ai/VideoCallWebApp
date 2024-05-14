@@ -158,6 +158,97 @@ button:active {
   gap: 10px; /* Spacing between participant blocks */
 }
 
+.meetSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.videoContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  max-width: 1200px;
+  margin-bottom: 20px;
+}
+
+.videoContainer video {
+  width: 48%;
+  border-radius: 8px;
+  border: 2px solid #1f1f1f;
+  background-color: #000;
+}
+
+.user-info {
+  width: 80%;
+  max-width: 1200px;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  color: #e0e0e0;
+}
+
+.user-info h2 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+.user-info p {
+  margin: 10px 0;
+  color: #b3b3b3;
+}
+
+/* Button Styles */
+button {
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #575757;
+}
+
+/* Input Styles */
+input[type="text"] {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border: 1px solid #3a3a3a;
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="text"]::placeholder {
+  color: #888888;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #575757;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #757575;
+}
 
 
 
