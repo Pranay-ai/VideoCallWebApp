@@ -1,21 +1,22 @@
 import { useEffect, useRef } from "react";
 import firepadRef from '../server/firebase';
 import { useSelector } from "react-redux";
-import { child, onValue, set, push, off } from 'firebase/database';
-export default function Meet(){
+import { child, onValue, set, push, off, remove } from 'firebase/database';
+
+export default function Meet() {
 
   const remoteVideoRef = useRef();
   const localVideoRef = useRef();
   const userRefDB = useSelector((state) => state.userInfo.userRefDB);
   const isCaller = useSelector((state) => state.userInfo.isCaller);
   let roomRef = null;
-  if(isCaller){
-    roomRef=useSelector((state)=>state.createRoom.roomId);
-  }
-  else{
-    roomRef=useSelector((state)=>state.join.RoomId);
+  if (isCaller) {
+    roomRef = useSelector((state) => state.createRoom.roomId);
+  } else {
+    roomRef = useSelector((state) => state.join.RoomId);
   }
   const pc = useRef(null);
+
   const getUserMedia = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -26,9 +27,8 @@ export default function Meet(){
     }
   };
 
-  useEffect(()=>{
-    const initWebRTC=async()=>{
-
+  useEffect(() => {
+    const initWebRTC = async () => {
       const stream = await getUserMedia();
       pc.current = new RTCPeerConnection({
         iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
@@ -41,17 +41,16 @@ export default function Meet(){
       pc.current.ontrack = event => {
         remoteVideoRef.current.srcObject = event.streams[0];
       };
+
       const localuserRef = child(firepadRef, 'rooms/' + roomRef + '/users/' + userRefDB);
-
       const allUsersRef = child(firepadRef, 'rooms/' + roomRef + '/users');
-
-      const offerRef=child(firepadRef, 'rooms/' + roomRef + '/offers');
-      const answerRef=child(firepadRef, 'rooms/' + roomRef + '/answers');
-      const candidateRef=child(firepadRef, 'rooms/' + roomRef + '/candidates');
+      const offerRef = child(firepadRef, 'rooms/' + roomRef + '/offers');
+      const answerRef = child(firepadRef, 'rooms/' + roomRef + '/answers');
+      const candidateRef = child(firepadRef, 'rooms/' + roomRef + '/candidates');
 
       pc.current.onicecandidate = event => {
         if (event.candidate) {
-          push(candidateRef,{ candidate:  event.candidate.toJSON(), userRefDB });
+          push(candidateRef, { candidate: event.candidate.toJSON(), userRefDB });
         }
       };
 
@@ -60,6 +59,7 @@ export default function Meet(){
         await pc.current.setLocalDescription(offer);
         set(offerRef, { offer: pc.current.localDescription.toJSON(), userRefDB });
       }
+
       onValue(offerRef, async (snapshot) => {
         if (!isCaller && !pc.current.currentRemoteDescription && snapshot.exists()) {
           const data = snapshot.val();
@@ -72,9 +72,10 @@ export default function Meet(){
           }
         }
       });
+
       onValue(candidateRef, snapshot => {
         snapshot.forEach(childSnapshot => {
-          if(childSnapshot.val().userRefDB === userRefDB) return;
+          if (childSnapshot.val().userRefDB === userRefDB) return;
           const candidate = new RTCIceCandidate(childSnapshot.val().candidate);
           pc.current.addIceCandidate(candidate)
             .then(() => console.log('ICE candidate added successfully'))
@@ -97,17 +98,30 @@ export default function Meet(){
         off(answerRef);
         off(candidateRef);
       };
-      
     };
 
-    if(roomRef && userRefDB){
+    if (roomRef && userRefDB) {
       initWebRTC();
     }
 
-  },[roomRef, userRefDB, isCaller])
+    function handleLeave() {
+      if (isCaller) {
+        remove(child(firepadRef, 'rooms/' + roomRef));
+      } else {
+        remove(child(firepadRef, 'rooms/' + roomRef + '/users/' + userRefDB));
+      }
+      if (pc.current) {
+        pc.current.close();
+      }
+    }
 
+    window.addEventListener("beforeunload", handleLeave);
 
-
+    return () => {
+      window.removeEventListener("beforeunload", handleLeave);
+      handleLeave();
+    };
+  }, [roomRef, userRefDB, isCaller]);
 
   return (
     <div className="meetSection">
